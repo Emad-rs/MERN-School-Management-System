@@ -20,7 +20,7 @@ const AccountMenu = () => {
     return (
         <>
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <Tooltip title="Account settings">
+                <Tooltip title="إعدادات الحساب">
                     <IconButton
                         onClick={handleClick}
                         size="small"
@@ -37,7 +37,7 @@ const AccountMenu = () => {
             </Box>
             <Menu
                 anchorEl={anchorEl}
-                id="account-menu"
+                id="قائمة الحساب"
                 open={open}
                 onClose={handleClose}
                 onClick={handleClose}
@@ -51,7 +51,7 @@ const AccountMenu = () => {
                 <MenuItem>
                     <Avatar />
                     <Link to={`/${currentRole}/profile`}>
-                        Profile
+                        بيانات الحساب
                     </Link>
                 </MenuItem>
                 <Divider />
@@ -59,14 +59,14 @@ const AccountMenu = () => {
                     <ListItemIcon>
                         <Settings fontSize="small" />
                     </ListItemIcon>
-                    Settings
+                    الأعدادات
                 </MenuItem>
                 <MenuItem>
                     <ListItemIcon>
                         <Logout fontSize="small" />
                     </ListItemIcon>
                     <Link to="/logout">
-                        Logout
+                        تسجيل الخروج
                     </Link>
                 </MenuItem>
             </Menu>

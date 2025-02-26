@@ -65,16 +65,16 @@ const ViewStdAttendance = () => {
         return (
             <>
                 <Typography variant="h4" align="center" gutterBottom>
-                    Attendance
+                    الحضور
                 </Typography>
                 <Table>
                     <TableHead>
                         <StyledTableRow>
-                            <StyledTableCell>Subject</StyledTableCell>
-                            <StyledTableCell>Present</StyledTableCell>
-                            <StyledTableCell>Total Sessions</StyledTableCell>
-                            <StyledTableCell>Attendance Percentage</StyledTableCell>
-                            <StyledTableCell align="center">Actions</StyledTableCell>
+                            <StyledTableCell>المادة</StyledTableCell>
+                            <StyledTableCell>حاضر</StyledTableCell>
+                            <StyledTableCell>إجمالي الحصص</StyledTableCell>
+                            <StyledTableCell>نسبةالحضور</StyledTableCell>
+                            <StyledTableCell align="center">الاجراءات</StyledTableCell>
                         </StyledTableRow>
                     </TableHead>
                     {Object.entries(attendanceBySubject).map(([subName, { present, allData, subId, sessions }], index) => {
@@ -90,7 +90,7 @@ const ViewStdAttendance = () => {
                                     <StyledTableCell align="center">
                                         <Button variant="contained"
                                             onClick={() => handleOpen(subId)}>
-                                            {openStates[subId] ? <KeyboardArrowUp /> : <KeyboardArrowDown />}Details
+                                            {openStates[subId] ? <KeyboardArrowUp /> : <KeyboardArrowDown />}التفاصيل
                                         </Button>
                                     </StyledTableCell>
                                 </StyledTableRow>
@@ -99,13 +99,13 @@ const ViewStdAttendance = () => {
                                         <Collapse in={openStates[subId]} timeout="auto" unmountOnExit>
                                             <Box sx={{ margin: 1 }}>
                                                 <Typography variant="h6" gutterBottom component="div">
-                                                    Attendance Details
+                                                    بيانات الحضور
                                                 </Typography>
                                                 <Table size="small" aria-label="purchases">
                                                     <TableHead>
                                                         <StyledTableRow>
-                                                            <StyledTableCell>Date</StyledTableCell>
-                                                            <StyledTableCell align="right">Status</StyledTableCell>
+                                                            <StyledTableCell>التاريخ</StyledTableCell>
+                                                            <StyledTableCell align="right">الحالة</StyledTableCell>
                                                         </StyledTableRow>
                                                     </TableHead>
                                                     <TableBody>
@@ -133,7 +133,7 @@ const ViewStdAttendance = () => {
                     )}
                 </Table>
                 <div>
-                    Overall Attendance Percentage: {overallAttendancePercentage.toFixed(2)}%
+                    إجمالي نسبةالحضور: {overallAttendancePercentage.toFixed(2)}%
                 </div>
             </>
         )
@@ -151,7 +151,7 @@ const ViewStdAttendance = () => {
         <>
             {loading
                 ? (
-                    <div>Loading...</div>
+                    <div>جاري التحميل...</div>
                 )
                 :
                 <div>
@@ -178,7 +178,7 @@ const ViewStdAttendance = () => {
                         :
                         <>
                             <Typography variant="h6" gutterBottom component="div">
-                                Currently You Have No Attendance Details
+                                انت لا تملك بيانات حضور حتى الان
                             </Typography>
                         </>
                     }

@@ -16,7 +16,7 @@ const subjectCreate = async (req, res) => {
         });
 
         if (existingSubjectBySubCode) {
-            res.send({ message: 'Sorry this subcode must be unique as it already exists' });
+            res.send({ message: 'عدرا رمز المادة هدا موجود بالفعل يرجى ادخال رقم أخر مختلف' });
         } else {
             const newSubjects = subjects.map((subject) => ({
                 ...subject,
@@ -39,7 +39,7 @@ const allSubjects = async (req, res) => {
         if (subjects.length > 0) {
             res.send(subjects)
         } else {
-            res.send({ message: "No subjects found" });
+            res.send({ message: "لا توجد مواد" });
         }
     } catch (err) {
         res.status(500).json(err);
@@ -52,7 +52,7 @@ const classSubjects = async (req, res) => {
         if (subjects.length > 0) {
             res.send(subjects)
         } else {
-            res.send({ message: "No subjects found" });
+            res.send({ message: "لا توجد مواد" });
         }
     } catch (err) {
         res.status(500).json(err);
@@ -65,7 +65,7 @@ const freeSubjectList = async (req, res) => {
         if (subjects.length > 0) {
             res.send(subjects);
         } else {
-            res.send({ message: "No subjects found" });
+            res.send({ message: "لا توجد مواد" });
         }
     } catch (err) {
         res.status(500).json(err);
@@ -81,7 +81,7 @@ const getSubjectDetail = async (req, res) => {
             res.send(subject);
         }
         else {
-            res.send({ message: "No subject found" });
+            res.send({ message: "لا توجد مواد" });
         }
     } catch (err) {
         res.status(500).json(err);
@@ -91,30 +91,15 @@ const getSubjectDetail = async (req, res) => {
 const deleteSubject = async (req, res) => {
     try {
         const deletedSubject = await Subject.findByIdAndDelete(req.params.id);
-
-        // Set the teachSubject field to null in teachers
-        await Teacher.updateOne(
-            { teachSubject: deletedSubject._id },
-            { $unset: { teachSubject: "" }, $unset: { teachSubject: null } }
-        );
-
-        // Remove the objects containing the deleted subject from students' examResult array
-        await Student.updateMany(
-            {},
-            { $pull: { examResult: { subName: deletedSubject._id } } }
-        );
-
-        // Remove the objects containing the deleted subject from students' attendance array
-        await Student.updateMany(
-            {},
-            { $pull: { attendance: { subName: deletedSubject._id } } }
-        );
-
-        res.send(deletedSubject);
+        if (!deletedSubject) {
+            return res.send({ message: "لا توجد مواد" });
+        }
+        res.send({ message: "تم حدف هده المادة بنجاح", deletedSubject });
     } catch (error) {
         res.status(500).json(error);
     }
 };
+
 
 const deleteSubjects = async (req, res) => {
     try {

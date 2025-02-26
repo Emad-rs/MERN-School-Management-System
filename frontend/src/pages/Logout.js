@@ -22,9 +22,9 @@ const Logout = () => {
     return (
         <LogoutContainer>
             <h1>{currentUser.name}</h1>
-            <LogoutMessage>Are you sure you want to log out?</LogoutMessage>
-            <LogoutButtonLogout onClick={handleLogout}>Log Out</LogoutButtonLogout>
-            <LogoutButtonCancel onClick={handleCancel}>Cancel</LogoutButtonCancel>
+            <LogoutMessage>هل أنت متأكد أنك تريد تسجيل الخروج؟</LogoutMessage>
+            <LogoutButtonLogout onClick={handleLogout}>تسجيل الخروج</LogoutButtonLogout>
+            <LogoutButtonCancel onClick={handleCancel}>إلفاء</LogoutButtonCancel>
         </LogoutContainer>
     );
 };
@@ -42,6 +42,7 @@ const LogoutContainer = styled.div`
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
   background-color: #85769f66;
   color: black;
+  direction: rtl;
 `;
 
 const LogoutMessage = styled.p`

@@ -35,7 +35,7 @@ const TeacherHomePage = () => {
                         <StyledPaper>
                             <img src={Students} alt="Students" />
                             <Title>
-                                Class Students
+                                طلاب الصف
                             </Title>
                             <Data start={0} end={numberOfStudents} duration={2.5} />
                         </StyledPaper>
@@ -44,7 +44,7 @@ const TeacherHomePage = () => {
                         <StyledPaper>
                             <img src={Lessons} alt="Lessons" />
                             <Title>
-                                Total Lessons
+                                إجمالي عدد الدروس
                             </Title>
                             <Data start={0} end={numberOfSessions} duration={5} />
                         </StyledPaper>
@@ -53,7 +53,7 @@ const TeacherHomePage = () => {
                         <StyledPaper>
                             <img src={Tests} alt="Tests" />
                             <Title>
-                                Tests Taken
+                        الاختبارات التي اجريت
                             </Title>
                             <Data start={0} end={24} duration={4} />
                         </StyledPaper>
@@ -62,7 +62,7 @@ const TeacherHomePage = () => {
                         <StyledPaper>
                             <img src={Time} alt="Time" />
                             <Title>
-                                Total Hours
+                                عدد الساعات
                             </Title>
                             <Data start={0} end={30} duration={4} suffix="hrs"/>                        </StyledPaper>
                     </Grid>

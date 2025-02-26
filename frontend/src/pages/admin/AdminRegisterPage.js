@@ -89,13 +89,12 @@ const AdminRegisterPage = () => {
                         }}
                     >
                         <Typography variant="h4" sx={{ mb: 2, color: "#2c2143" }}>
-                            Admin Register
+                            انشاء حساب مسؤول
                         </Typography>
                         <Typography variant="h7">
-                            Create your own school by registering as an admin.
+                            انشاء حسابك الخاص بصفتك مسؤول
                             <br />
-                            You will be able to add students and faculty and
-                            manage the system.
+                            سيصبح بإمكانك إضافة الطلاب والصفوف وإدارة هدا النظام بصفتك المسؤول.
                         </Typography>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 2 }}>
                             <TextField
@@ -177,11 +176,11 @@ const AdminRegisterPage = () => {
                             </LightPurpleButton>
                             <Grid container>
                                 <Grid>
-                                    Already have an account?
+                                    لديك حساب بالفعل؟
                                 </Grid>
                                 <Grid item sx={{ ml: 2 }}>
                                     <StyledLink to="/Adminlogin">
-                                        Log in
+                                        تسجيل الدخول
                                     </StyledLink>
                                 </Grid>
                             </Grid>

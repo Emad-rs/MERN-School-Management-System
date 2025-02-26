@@ -25,44 +25,53 @@ const ChooseUser = ({ visitor }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
 
-  const navigateHandler = (user) => {
+   const navigateHandler = (user) => {
     if (user === "Admin") {
-      if (visitor === "guest") {
-        const email = "yogendra@12"
-        const fields = { email, password }
-        setLoader(true)
-        dispatch(loginUser(fields, user))
-      }
-      else {
-        navigate('/Adminlogin');
-      }
-    }
-
-    else if (user === "Student") {
-      if (visitor === "guest") {
-        const rollNum = "1"
-        const studentName = "Dipesh Awasthi"
-        const fields = { rollNum, studentName, password }
-        setLoader(true)
-        dispatch(loginUser(fields, user))
-      }
-      else {
-        navigate('/Studentlogin');
-      }
-    }
-
-    else if (user === "Teacher") {
-      if (visitor === "guest") {
-        const email = "tony@12"
-        const fields = { email, password }
-        setLoader(true)
-        dispatch(loginUser(fields, user))
-      }
-      else {
-        navigate('/Teacherlogin');
-      }
-    }
+      navigate('/Adminlogin');
   }
+  else if (user === "Student") {
+      navigate('/Studentlogin');
+  }
+  else if (user === "Teacher") {
+      navigate('/Teacherlogin');
+  }
+  //   if (user === "Admin") {
+  //     if (visitor === "guest") {
+  //       const email = "yogendra@12"
+  //       const fields = { email, password }
+  //       setLoader(true)
+  //       dispatch(loginUser(fields, user))
+  //     }
+  //     else {
+  //       navigate('/Adminlogin');
+  //     }
+  //   }
+
+  //   else if (user === "Student") {
+  //     if (visitor === "guest") {
+  //       const rollNum = "1"
+  //       const studentName = "Dipesh Awasthi"
+  //       const fields = { rollNum, studentName, password }
+  //       setLoader(true)
+  //       dispatch(loginUser(fields, user))
+  //     }
+  //     else {
+  //       navigate('/Studentlogin');
+  //     }
+  //   }
+
+  //   else if (user === "Teacher") {
+  //     if (visitor === "guest") {
+  //       const email = "tony@12"
+  //       const fields = { email, password }
+  //       setLoader(true)
+  //       dispatch(loginUser(fields, user))
+  //     }
+  //     else {
+  //       navigate('/Teacherlogin');
+  //     }
+  //   }
+   }
 
   useEffect(() => {
     if (status === 'success' || currentUser !== null) {
@@ -93,9 +102,9 @@ const ChooseUser = ({ visitor }) => {
                   <AccountCircle fontSize="large" />
                 </Box>
                 <StyledTypography>
-                  Admin
+                  المسؤول
                 </StyledTypography>
-                Login as an administrator to access the dashboard to manage app data.
+                تسجيل الدخول كمسؤول للوصول إلى لوحة التحكم لإدارة بيانات التطبيق.
               </StyledPaper>
             </div>
           </Grid>
@@ -106,9 +115,9 @@ const ChooseUser = ({ visitor }) => {
                   <School fontSize="large" />
                 </Box>
                 <StyledTypography>
-                  Student
+                  الطالب
                 </StyledTypography>
-                Login as a student to explore course materials and assignments.
+                تسجيل الدخول كطالب لاستكشاف مواد الصق والواجبات.
               </div>
             </StyledPaper>
           </Grid>
@@ -119,9 +128,9 @@ const ChooseUser = ({ visitor }) => {
                   <Group fontSize="large" />
                 </Box>
                 <StyledTypography>
-                  Teacher
+                  المعلم
                 </StyledTypography>
-                Login as a teacher to create courses, assignments, and track student progress.
+               .تسجيل الدخول كمعلم لإنشاء الفصول والواجبات وتتبع تقدم الطلاب
               </div>
             </StyledPaper>
           </Grid>
@@ -132,7 +141,7 @@ const ChooseUser = ({ visitor }) => {
         open={loader}
       >
         <CircularProgress color="inherit" />
-        Please Wait
+        الرجاء الانتظار
       </Backdrop>
       <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
     </StyledContainer>
@@ -147,6 +156,7 @@ const StyledContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 2rem;
+  ؤ
 `;
 
 const StyledPaper = styled(Paper)`

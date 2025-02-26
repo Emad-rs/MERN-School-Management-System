@@ -14,7 +14,7 @@ const studentRegister = async (req, res) => {
         });
 
         if (existingStudent) {
-            res.send({ message: 'Roll Number already exists' });
+            res.send({ message: 'رقم القيد هدا موجود بالفعل' });
         }
         else {
             const student = new Student({
@@ -46,10 +46,10 @@ const studentLogIn = async (req, res) => {
                 student.attendance = undefined;
                 res.send(student);
             } else {
-                res.send({ message: "Invalid password" });
+                res.send({ message: "كلمة مرور غبير صحيحة" });
             }
         } else {
-            res.send({ message: "Student not found" });
+            res.send({ message: "لا يوجد طلاب" });
         }
     } catch (err) {
         res.status(500).json(err);
@@ -65,7 +65,7 @@ const getStudents = async (req, res) => {
             });
             res.send(modifiedStudents);
         } else {
-            res.send({ message: "No students found" });
+            res.send({ message: "لم يتم العثور على طلاب" });
         }
     } catch (err) {
         res.status(500).json(err);
@@ -84,7 +84,7 @@ const getStudentDetail = async (req, res) => {
             res.send(student);
         }
         else {
-            res.send({ message: "No student found" });
+            res.send({ message: "لا يوجد طلاب" });
         }
     } catch (err) {
         res.status(500).json(err);
@@ -93,18 +93,21 @@ const getStudentDetail = async (req, res) => {
 
 const deleteStudent = async (req, res) => {
     try {
-        const result = await Student.findByIdAndDelete(req.params.id)
-        res.send(result)
+        const deletedStudent = await Student.findByIdAndDelete(req.params.id);
+        if (!deletedStudent) {
+            return res.send({ message: "لا يوجد طلاب" });
+        }
+        res.send({ message: "تم حدف الطالب بنجاح", deletedStudent });
     } catch (error) {
-        res.status(500).json(err);
+        res.status(500).json(error);
     }
-}
+};
 
 const deleteStudents = async (req, res) => {
     try {
         const result = await Student.deleteMany({ school: req.params.id })
         if (result.deletedCount === 0) {
-            res.send({ message: "No students found to delete" })
+            res.send({ message: "لا يوجد طلاب لحدفهم" })
         } else {
             res.send(result)
         }
@@ -117,7 +120,7 @@ const deleteStudentsByClass = async (req, res) => {
     try {
         const result = await Student.deleteMany({ sclassName: req.params.id })
         if (result.deletedCount === 0) {
-            res.send({ message: "No students found to delete" })
+            res.send({ message: "لا يوجد طلاب لحدفهم" })
         } else {
             res.send(result)
         }
@@ -150,7 +153,7 @@ const updateExamResult = async (req, res) => {
         const student = await Student.findById(req.params.id);
 
         if (!student) {
-            return res.send({ message: 'Student not found' });
+            return res.send({ message: 'لا يوجد طلاب ' });
         }
 
         const existingResult = student.examResult.find(
@@ -177,7 +180,7 @@ const studentAttendance = async (req, res) => {
         const student = await Student.findById(req.params.id);
 
         if (!student) {
-            return res.send({ message: 'Student not found' });
+            return res.send({ message: 'لا يوجد طلاب' });
         }
 
         const subject = await Subject.findById(subName);
@@ -197,7 +200,7 @@ const studentAttendance = async (req, res) => {
             ).length;
 
             if (attendedSessions >= subject.sessions) {
-                return res.send({ message: 'Maximum attendance limit reached' });
+                return res.send({ message: 'لقد بلغت الحد الاقصى للحضور' });
             }
 
             student.attendance.push({ date, status, subName });

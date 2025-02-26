@@ -20,8 +20,8 @@ const TableTemplate = ({ buttonHaver: ButtonHaver, columns, rows }) => {
                                     {column.label}
                                 </StyledTableCell>
                             ))}
-                            <StyledTableCell align="center">
-                                Actions
+                            <StyledTableCell align="right">
+                                الأحداث
                             </StyledTableCell>
                         </StyledTableRow>
                     </TableHead>

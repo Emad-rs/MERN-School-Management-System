@@ -89,7 +89,7 @@ const StudentExamMarks = ({ situation }) => {
             {loading
                 ?
                 <>
-                    <div>Loading...</div>
+                    <div>جاري التحميل ...</div>
                 </>
                 :
                 <>
@@ -111,11 +111,11 @@ const StudentExamMarks = ({ situation }) => {
                         >
                             <Stack spacing={1} sx={{ mb: 3 }}>
                                 <Typography variant="h4">
-                                    Student Name: {userDetails.name}
+                                    أسم الطالب: {userDetails.name}
                                 </Typography>
                                 {currentUser.teachSubject &&
                                     <Typography variant="h4">
-                                        Subject Name: {currentUser.teachSubject?.subName}
+                                        أسم المادة: {currentUser.teachSubject?.subName}
                                     </Typography>
                                 }
                             </Stack>
@@ -125,13 +125,13 @@ const StudentExamMarks = ({ situation }) => {
                                         situation === "Student" &&
                                         <FormControl fullWidth>
                                             <InputLabel id="demo-simple-select-label">
-                                                Select Subject
+                                                أختر مادة 
                                             </InputLabel>
                                             <Select
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
                                                 value={subjectName}
-                                                label="Choose an option"
+                                                label="حدد أختيار"
                                                 onChange={changeHandler} required
                                             >
                                                 {subjectsList ?
@@ -141,15 +141,15 @@ const StudentExamMarks = ({ situation }) => {
                                                         </MenuItem>
                                                     ))
                                                     :
-                                                    <MenuItem value="Select Subject">
-                                                        Add Subjects For Marks
+                                                    <MenuItem value="اختر مادة">
+                                                        إضافة درجات المادة
                                                     </MenuItem>
                                                 }
                                             </Select>
                                         </FormControl>
                                     }
                                     <FormControl>
-                                        <TextField type="number" label='Enter marks'
+                                        <TextField type="number" label='ادخل الدرجة'
                                             value={marksObtained} required
                                             onChange={(e) => setMarksObtained(e.target.value)}
                                             InputLabelProps={{

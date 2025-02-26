@@ -73,29 +73,29 @@ const LoginPage = ({ role }) => {
         if (name === 'studentName') setStudentNameError(false);
     };
 
-    const guestModeHandler = () => {
-        const password = "zxc"
+    // const guestModeHandler = () => {
+    //     const password = "zxc"
 
-        if (role === "Admin") {
-            const email = "yogendra@12"
-            const fields = { email, password }
-            setGuestLoader(true)
-            dispatch(loginUser(fields, role))
-        }
-        else if (role === "Student") {
-            const rollNum = "1"
-            const studentName = "Dipesh Awasthi"
-            const fields = { rollNum, studentName, password }
-            setGuestLoader(true)
-            dispatch(loginUser(fields, role))
-        }
-        else if (role === "Teacher") {
-            const email = "tony@12"
-            const fields = { email, password }
-            setGuestLoader(true)
-            dispatch(loginUser(fields, role))
-        }
-    }
+    //     if (role === "Admin") {
+    //         const email = "yogendra@12"
+    //         const fields = { email, password }
+    //         setGuestLoader(true)
+    //         dispatch(loginUser(fields, role))
+    //     }
+    //     else if (role === "Student") {
+    //         const rollNum = "1"
+    //         const studentName = "Dipesh Awasthi"
+    //         const fields = { rollNum, studentName, password }
+    //         setGuestLoader(true)
+    //         dispatch(loginUser(fields, role))
+    //     }
+    //     else if (role === "Teacher") {
+    //         const email = "tony@12"
+    //         const fields = { email, password }
+    //         setGuestLoader(true)
+    //         dispatch(loginUser(fields, role))
+    //     }
+    // }
 
     useEffect(() => {
         if (status === 'success' || currentUser !== null) {
@@ -136,10 +136,10 @@ const LoginPage = ({ role }) => {
                         }}
                     >
                         <Typography variant="h4" sx={{ mb: 2, color: "#2c2143" }}>
-                            {role} Login
+                            {role} تسجيل الدخول
                         </Typography>
                         <Typography variant="h7">
-                            Welcome back! Please enter your details
+                        مرحبًا بعودتك! يرجى إدخال بياناتك.
                         </Typography>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 2 }}>
                             {role === "Student" ? (
@@ -219,7 +219,7 @@ const LoginPage = ({ role }) => {
                                     label="Remember me"
                                 />
                                 <StyledLink href="#">
-                                    Forgot password?
+                                    هل نسيت كلمة المرور؟
                                 </StyledLink>
                             </Grid>
                             <LightPurpleButton
@@ -232,22 +232,15 @@ const LoginPage = ({ role }) => {
                                     <CircularProgress size={24} color="inherit" />
                                     : "Login"}
                             </LightPurpleButton>
-                            <Button
-                                fullWidth
-                                onClick={guestModeHandler}
-                                variant="outlined"
-                                sx={{ mt: 2, mb: 3, color: "#7f56da", borderColor: "#7f56da" }}
-                            >
-                                Login as Guest
-                            </Button>
+                            
                             {role === "Admin" &&
                                 <Grid container>
                                     <Grid>
-                                        Don't have an account?
+                                        ليس لديك حساب؟
                                     </Grid>
                                     <Grid item sx={{ ml: 2 }}>
                                         <StyledLink to="/Adminregister">
-                                            Sign up
+                                    انشاء حساب جديد
                                         </StyledLink>
                                     </Grid>
                                 </Grid>
@@ -275,7 +268,7 @@ const LoginPage = ({ role }) => {
                 open={guestLoader}
             >
                 <CircularProgress color="primary" />
-                Please Wait
+                الرجاء الانتظار
             </Backdrop>
             <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
         </ThemeProvider>

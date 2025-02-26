@@ -46,11 +46,11 @@ const AdminProfile = () => {
 
     return (
         <div>
-            Name: {currentUser.name}
+           الأسم: {currentUser.name}
             <br />
-            Email: {currentUser.email}
+            البريد الألكتروني: {currentUser.email}
             <br />
-            School: {currentUser.schoolName}
+            المدرسة: {currentUser.schoolName}
             <br />
             {/* <Button variant="contained" color="error" onClick={deleteHandler}>Delete</Button> */}
             {/* <Button variant="contained" sx={styles.showButton}

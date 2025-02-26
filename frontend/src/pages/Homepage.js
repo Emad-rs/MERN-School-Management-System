@@ -15,34 +15,28 @@ const Homepage = () => {
                 <Grid item xs={12} md={6}>
                     <StyledPaper elevation={3}>
                         <StyledTitle>
-                            Welcome to
+                        مرحبا بك 
                             <br />
-                            School Management
+                            في نظام 
                             <br />
-                            System
+                            إدارة المدرسة
                         </StyledTitle>
                         <StyledText>
-                            Streamline school management, class organization, and add students and faculty.
-                            Seamlessly track attendance, assess performance, and provide feedback.
-                            Access records, view marks, and communicate effortlessly.
+                        نظام إدارة المدرسة، تنظيم الفصول، وإضافة الطلاب وأعضاء هيئة التدريس.
+تتبع الحضور بسلاسة، تقييم الأداء وتقديم الملاحظات.
+الوصول إلى السجلات، عرض الدرجات، والتواصل بسهولة.
                         </StyledText>
                         <StyledBox>
                             <StyledLink to="/choose">
                                 <LightPurpleButton variant="contained" fullWidth>
-                                    Login
+                                    تسجيل الدخول
                                 </LightPurpleButton>
                             </StyledLink>
-                            <StyledLink to="/chooseasguest">
-                                <Button variant="outlined" fullWidth
-                                    sx={{ mt: 2, mb: 3, color: "#7f56da", borderColor: "#7f56da" }}
-                                >
-                                    Login as Guest
-                                </Button>
-                            </StyledLink>
+                            
                             <StyledText>
-                                Don't have an account?{' '}
+                                ليس لديك حساب؟{' '}
                                 <Link to="/Adminregister" style={{color:"#550080"}}>
-                                    Sign up
+                                    انشاء حساب جديد
                                 </Link>
                             </StyledText>
                         </StyledBox>
@@ -60,6 +54,7 @@ const StyledContainer = styled(Container)`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  direction: rtl;
 `;
 
 const StyledPaper = styled.div`
@@ -79,7 +74,7 @@ const StyledBox = styled(Box)`
 const StyledTitle = styled.h1`
   font-size: 3rem;
   color: #252525;
-  /* font-family: "Manrope"; */
+  font-family: "Manrope";
   font-weight: bold;
   padding-top: 0;
   letter-spacing: normal;
@@ -87,7 +82,7 @@ const StyledTitle = styled.h1`
 `;
 
 const StyledText = styled.p`
-  /* color: #550080; */
+  color: #550080; 
   margin-top: 30px;
   margin-bottom: 30px; 
   letter-spacing: normal;
@@ -96,4 +91,5 @@ const StyledText = styled.p`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+  color:rgb(28, 2, 37);
 `;

@@ -64,20 +64,20 @@ const TeacherViewStudent = () => {
             {loading
                 ?
                 <>
-                    <div>Loading...</div>
+                    <div>جاري التحميل...</div>
                 </>
                 :
                 <div>
-                    Name: {userDetails.name}
+                    الاسم: {userDetails.name}
                     <br />
-                    Roll Number: {userDetails.rollNum}
+                    رقم القيد: {userDetails.rollNum}
                     <br />
-                    Class: {sclassName.sclassName}
+                    الفصل: {sclassName.sclassName}
                     <br />
-                    School: {studentSchool.schoolName}
+                    المدرسة: {studentSchool.schoolName}
                     <br /><br />
 
-                    <h3>Attendance:</h3>
+                    <h3>الحضور:</h3>
                     {subjectAttendance && Array.isArray(subjectAttendance) && subjectAttendance.length > 0
                         &&
                         <>
@@ -89,11 +89,11 @@ const TeacherViewStudent = () => {
                                         <Table key={index}>
                                             <TableHead>
                                                 <StyledTableRow>
-                                                    <StyledTableCell>Subject</StyledTableCell>
-                                                    <StyledTableCell>Present</StyledTableCell>
-                                                    <StyledTableCell>Total Sessions</StyledTableCell>
-                                                    <StyledTableCell>Attendance Percentage</StyledTableCell>
-                                                    <StyledTableCell align="center">Actions</StyledTableCell>
+                                                    <StyledTableCell>المادة</StyledTableCell>
+                                                    <StyledTableCell>حاضر</StyledTableCell>
+                                                    <StyledTableCell>عدد الحصص</StyledTableCell>
+                                                    <StyledTableCell>نسبةالحضور</StyledTableCell>
+                                                    <StyledTableCell align="center">الأجراءات</StyledTableCell>
                                                 </StyledTableRow>
                                             </TableHead>
 
@@ -105,7 +105,7 @@ const TeacherViewStudent = () => {
                                                     <StyledTableCell>{subjectAttendancePercentage}%</StyledTableCell>
                                                     <StyledTableCell align="center">
                                                         <Button variant="contained" onClick={() => handleOpen(subId)}>
-                                                            {openStates[subId] ? <KeyboardArrowUp /> : <KeyboardArrowDown />}Details
+                                                            {openStates[subId] ? <KeyboardArrowUp /> : <KeyboardArrowDown />}التفاصيل
                                                         </Button>
                                                     </StyledTableCell>
                                                 </StyledTableRow>
@@ -151,7 +151,7 @@ const TeacherViewStudent = () => {
                                 }
                             })}
                             <div>
-                                Overall Attendance Percentage: {overallAttendancePercentage.toFixed(2)}%
+                                إجمالي نسبةالحضور: {overallAttendancePercentage.toFixed(2)}%
                             </div>
 
                             <CustomPieChart data={chartData} />
@@ -166,10 +166,10 @@ const TeacherViewStudent = () => {
                             )
                         }
                     >
-                        Add Attendance
+                        إضافة حضور
                     </Button>
                     <br /><br /><br />
-                    <h3>Subject Marks:</h3>
+                    <h3>درجات المادة:</h3>
 
                     {subjectMarks && Array.isArray(subjectMarks) && subjectMarks.length > 0 &&
                         <>
@@ -179,8 +179,8 @@ const TeacherViewStudent = () => {
                                         <Table key={index}>
                                             <TableHead>
                                                 <StyledTableRow>
-                                                    <StyledTableCell>Subject</StyledTableCell>
-                                                    <StyledTableCell>Marks</StyledTableCell>
+                                                    <StyledTableCell>المادة</StyledTableCell>
+                                                    <StyledTableCell>درجات</StyledTableCell>
                                                 </StyledTableRow>
                                             </TableHead>
                                             <TableBody>
@@ -204,7 +204,7 @@ const TeacherViewStudent = () => {
                             navigate(
                                 `/Teacher/class/student/marks/${studentID}/${teachSubjectID}`
                             )}>
-                        Add Marks
+                        إضافة درجات
                     </PurpleButton>
                     <br /><br /><br />
                 </div>

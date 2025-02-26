@@ -66,24 +66,24 @@ const AddTeacher = () => {
           <span className="registerTitle">Add Teacher</span>
           <br />
           <label>
-            Subject : {subjectDetails && subjectDetails.subName}
+            المادة : {subjectDetails && subjectDetails.subName}
           </label>
           <label>
-            Class : {subjectDetails && subjectDetails.sclassName && subjectDetails.sclassName.sclassName}
+            الصف : {subjectDetails && subjectDetails.sclassName && subjectDetails.sclassName.sclassName}
           </label>
-          <label>Name</label>
+          <label>الأسم</label>
           <input className="registerInput" type="text" placeholder="Enter teacher's name..."
             value={name}
             onChange={(event) => setName(event.target.value)}
             autoComplete="name" required />
 
-          <label>Email</label>
+          <label>البريد الألكتروني</label>
           <input className="registerInput" type="email" placeholder="Enter teacher's email..."
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             autoComplete="email" required />
 
-          <label>Password</label>
+          <label>كلمة المرور</label>
           <input className="registerInput" type="password" placeholder="Enter teacher's password..."
             value={password}
             onChange={(event) => setPassword(event.target.value)}

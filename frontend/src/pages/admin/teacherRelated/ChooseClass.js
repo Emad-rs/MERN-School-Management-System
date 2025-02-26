@@ -46,7 +46,7 @@ const ChooseClass = ({ situation }) => {
             <>
                 <PurpleButton variant="contained"
                     onClick={() => navigateHandler(row.id)}>
-                    Choose
+                    أختر
                 </PurpleButton>
             </>
         );
@@ -55,19 +55,19 @@ const ChooseClass = ({ situation }) => {
     return (
         <>
             {loading ?
-                <div>Loading...</div>
+                <div>جاري التحميل...</div>
                 :
                 <>
                     {getresponse ?
                         <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
                             <Button variant="contained" onClick={() => navigate("/Admin/addclass")}>
-                                Add Class
+                             إضافة صف
                             </Button>
                         </Box>
                         :
                         <>
                             <Typography variant="h6" gutterBottom component="div">
-                                Choose a class
+                                إختر الصف
                             </Typography>
                             {Array.isArray(sclassesList) && sclassesList.length > 0 &&
                                 <TableTemplate buttonHaver={SclassButtonHaver} columns={sclassColumns} rows={sclassRows} />

@@ -16,7 +16,7 @@ const sclassCreate = async (req, res) => {
         });
 
         if (existingSclassByName) {
-            res.send({ message: 'Sorry this class name already exists' });
+            res.send({ message: 'عدرا الاسم الدي ادخلته تم استخدامه بالغعل' });
         }
         else {
             const result = await sclass.save();
@@ -33,7 +33,7 @@ const sclassList = async (req, res) => {
         if (sclasses.length > 0) {
             res.send(sclasses)
         } else {
-            res.send({ message: "No sclasses found" });
+            res.send({ message: "لا يوجد صفوف" });
         }
     } catch (err) {
         res.status(500).json(err);
@@ -48,7 +48,7 @@ const getSclassDetail = async (req, res) => {
             res.send(sclass);
         }
         else {
-            res.send({ message: "No class found" });
+            res.send({ message: "لا يوجد صفوف" });
         }
     } catch (err) {
         res.status(500).json(err);
@@ -64,33 +64,36 @@ const getSclassStudents = async (req, res) => {
             });
             res.send(modifiedStudents);
         } else {
-            res.send({ message: "No students found" });
+            res.send({ message: "لا يوجد طلاب " });
         }
     } catch (err) {
         res.status(500).json(err);
     }
 }
 
+
 const deleteSclass = async (req, res) => {
     try {
         const deletedClass = await Sclass.findByIdAndDelete(req.params.id);
         if (!deletedClass) {
-            return res.send({ message: "Class not found" });
+            return res.send({ message: "لم يتم العثور عل صفوف" });
         }
-        const deletedStudents = await Student.deleteMany({ sclassName: req.params.id });
-        const deletedSubjects = await Subject.deleteMany({ sclassName: req.params.id });
-        const deletedTeachers = await Teacher.deleteMany({ teachSclass: req.params.id });
-        res.send(deletedClass);
+
+        await Student.deleteMany({ sclassName: req.params.id });
+        await Subject.deleteMany({ sclassName: req.params.id });
+        await Teacher.updateMany({ teachSclass: req.params.id }, { $pull: { teachSclass: req.params.id } });
+
+        res.send({ message: "تم حدف الصفوف وملحقاتها بنجاح", deletedClass });
     } catch (error) {
         res.status(500).json(error);
     }
-}
+};
 
 const deleteSclasses = async (req, res) => {
     try {
         const deletedClasses = await Sclass.deleteMany({ school: req.params.id });
         if (deletedClasses.deletedCount === 0) {
-            return res.send({ message: "No classes found to delete" });
+            return res.send({ message: "لا توجد صفوف لمسحها" });
         }
         const deletedStudents = await Student.deleteMany({ school: req.params.id });
         const deletedSubjects = await Subject.deleteMany({ school: req.params.id });

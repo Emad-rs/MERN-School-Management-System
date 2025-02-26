@@ -9,7 +9,7 @@ import {
     IconButton,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'; // ✅ استيراد الأيقونة الصحيحة
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AppBar, Drawer } from '../../components/styles';
 import Logout from '../Logout';
@@ -50,21 +50,21 @@ const AdminDashboard = () => {
 
     return (
         <>
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex', direction: 'rtl' }}> {/* ✅ دعم RTL */}
                 <CssBaseline />
                 <AppBar open={open} position='absolute'>
                     <Toolbar sx={{ pr: '24px' }}>
                         <IconButton
-                            edge="start"
+                            edge="end"
                             color="inherit"
                             aria-label="open drawer"
                             onClick={toggleDrawer}
                             sx={{
-                                marginRight: '36px',
+                                marginRight: '36px', 
                                 ...(open && { display: 'none' }),
                             }}
                         >
-                            <MenuIcon />
+                            <MenuIcon/> 
                         </IconButton>
                         <Typography
                             component="h1"
@@ -73,15 +73,20 @@ const AdminDashboard = () => {
                             noWrap
                             sx={{ flexGrow: 1 }}
                         >
-                            Admin Dashboard
+                            لوحة تحكم المسؤول
                         </Typography>
                         <AccountMenu />
                     </Toolbar>
                 </AppBar>
-                <Drawer variant="permanent" open={open} sx={open ? styles.drawerStyled : styles.hideDrawer}>
+                <Drawer
+                    variant="permanent"
+                    anchor="right" // ✅ القائمة تظهر من اليمين
+                    open={open}
+                    sx={open ? styles.drawerStyled : styles.hideDrawer}
+                >
                     <Toolbar sx={styles.toolBarStyled}>
                         <IconButton onClick={toggleDrawer}>
-                            <ChevronLeftIcon />
+                            <ChevronRightIcon /> {/* ✅ تغيير الأيقونة للاتجاه الصحيح */}
                         </IconButton>
                     </Toolbar>
                     <Divider />
@@ -98,11 +103,11 @@ const AdminDashboard = () => {
                         <Route path="/Admin/profile" element={<AdminProfile />} />
                         <Route path="/Admin/complains" element={<SeeComplains />} />
 
-                        {/* Notice */}
+                        {/* الملاحظات  */}
                         <Route path="/Admin/addnotice" element={<AddNotice />} />
                         <Route path="/Admin/notices" element={<ShowNotices />} />
 
-                        {/* Subject */}
+                        {/* المادة */}
                         <Route path="/Admin/subjects" element={<ShowSubjects />} />
                         <Route path="/Admin/subjects/subject/:classID/:subjectID" element={<ViewSubject />} />
                         <Route path="/Admin/subjects/chooseclass" element={<ChooseClass situation="Subject" />} />
@@ -113,20 +118,20 @@ const AdminDashboard = () => {
                         <Route path="/Admin/subject/student/attendance/:studentID/:subjectID" element={<StudentAttendance situation="Subject" />} />
                         <Route path="/Admin/subject/student/marks/:studentID/:subjectID" element={<StudentExamMarks situation="Subject" />} />
 
-                        {/* Class */}
+                        {/* الفصل */}
                         <Route path="/Admin/addclass" element={<AddClass />} />
                         <Route path="/Admin/classes" element={<ShowClasses />} />
                         <Route path="/Admin/classes/class/:id" element={<ClassDetails />} />
                         <Route path="/Admin/class/addstudents/:id" element={<AddStudent situation="Class" />} />
 
-                        {/* Student */}
+                        {/* الطالب */}
                         <Route path="/Admin/addstudents" element={<AddStudent situation="Student" />} />
                         <Route path="/Admin/students" element={<ShowStudents />} />
                         <Route path="/Admin/students/student/:id" element={<ViewStudent />} />
                         <Route path="/Admin/students/student/attendance/:id" element={<StudentAttendance situation="Student" />} />
                         <Route path="/Admin/students/student/marks/:id" element={<StudentExamMarks situation="Student" />} />
 
-                        {/* Teacher */}
+                        {/* الاستاد */}
                         <Route path="/Admin/teachers" element={<ShowTeachers />} />
                         <Route path="/Admin/teachers/teacher/:id" element={<TeacherDetails />} />
                         <Route path="/Admin/teachers/chooseclass" element={<ChooseClass situation="Teacher" />} />
@@ -164,9 +169,10 @@ const styles = {
         display: "flex"
     },
     hideDrawer: {
-        display: 'flex',
+        display: 'none', // ✅ تأكد من أنه مخفي عندما يكون مغلقًا
         '@media (max-width: 600px)': {
             display: 'none',
-        },
+        }
     },
-}
+
+};

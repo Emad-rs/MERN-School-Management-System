@@ -48,7 +48,7 @@ const AddClass = () => {
             setLoader(false)
         }
         else if (status === 'error') {
-            setMessage("Network Error")
+            setMessage("لايوجد انترنت")
             setShowPopup(true)
             setLoader(false)
         }
@@ -58,7 +58,7 @@ const AddClass = () => {
             <StyledContainer>
                 <StyledBox>
                     <Stack sx={{
-                        alignItems: 'center',
+                        alignItems: 'right',
                         mb: 3
                     }}>
                         <img
@@ -70,7 +70,7 @@ const AddClass = () => {
                     <form onSubmit={submitHandler}>
                         <Stack spacing={3}>
                             <TextField
-                                label="Create a class"
+                                label="انشاء فصل"
                                 variant="outlined"
                                 value={sclassName}
                                 onChange={(event) => {
@@ -89,7 +89,7 @@ const AddClass = () => {
                                 {loader ? <CircularProgress size={24} color="inherit" /> : "Create"}
                             </BlueButton>
                             <Button variant="outlined" onClick={() => navigate(-1)}>
-                                Go Back
+                                الرجوع للخلف
                             </Button>
                         </Stack>
                     </form>
@@ -104,9 +104,9 @@ export default AddClass
 
 const StyledContainer = styled(Box)`
   flex: 1 1 auto;
-  align-items: center;
+  align-items: right;
   display: flex;
-  justify-content: center;
+  justify-content: right;
 `;
 
 const StyledBox = styled(Box)`

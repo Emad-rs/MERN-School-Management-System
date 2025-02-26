@@ -38,12 +38,12 @@ const StudentComplain = () => {
         if (status === "added") {
             setLoader(false)
             setShowPopup(true)
-            setMessage("Done Successfully")
+            setMessage("تمت العملية بنجاح")
         }
         else if (error) {
             setLoader(false)
             setShowPopup(true)
-            setMessage("Network Error")
+            setMessage("فشل الاتصال بالانترنت")
         }
     }, [status, error])
 
@@ -67,13 +67,13 @@ const StudentComplain = () => {
                 >
                     <div>
                         <Stack spacing={1} sx={{ mb: 3 }}>
-                            <Typography variant="h4">Complain</Typography>
+                            <Typography variant="h4">الشكوى</Typography>
                         </Stack>
                         <form onSubmit={submitHandler}>
                             <Stack spacing={3}>
                                 <TextField
                                     fullWidth
-                                    label="Select Date"
+                                    label="حدد التاريخ"
                                     type="date"
                                     value={date}
                                     onChange={(event) => setDate(event.target.value)} required
@@ -83,7 +83,7 @@ const StudentComplain = () => {
                                 />
                                 <TextField
                                     fullWidth
-                                    label="Write your complain"
+                                    label="أكتب محتوى الشكوى"
                                     variant="outlined"
                                     value={complaint}
                                     onChange={(event) => {

@@ -48,12 +48,12 @@ const SeeComplains = () => {
   return (
     <>
       {loading ?
-        <div>Loading...</div>
+        <div>جاري التحميل</div>
         :
         <>
           {response ?
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
-              No Complains Right Now
+              لا توجد شكاوي حتى هده الآن
             </Box>
             :
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>

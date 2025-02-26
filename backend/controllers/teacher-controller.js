@@ -38,10 +38,10 @@ const teacherLogIn = async (req, res) => {
                 teacher.password = undefined;
                 res.send(teacher);
             } else {
-                res.send({ message: "Invalid password" });
+                res.send({ message: "كلمة المرور غير صحيحة" });
             }
         } else {
-            res.send({ message: "Teacher not found" });
+            res.send({ message: "لا يوجد معلم" });
         }
     } catch (err) {
         res.status(500).json(err);
@@ -59,7 +59,7 @@ const getTeachers = async (req, res) => {
             });
             res.send(modifiedTeachers);
         } else {
-            res.send({ message: "No teachers found" });
+            res.send({ message: "لا يوجد معلمين" });
         }
     } catch (err) {
         res.status(500).json(err);
@@ -77,7 +77,7 @@ const getTeacherDetail = async (req, res) => {
             res.send(teacher);
         }
         else {
-            res.send({ message: "No teacher found" });
+            res.send({ message: "لا يوجد معلم" });
         }
     } catch (err) {
         res.status(500).json(err);
@@ -104,18 +104,14 @@ const updateTeacherSubject = async (req, res) => {
 const deleteTeacher = async (req, res) => {
     try {
         const deletedTeacher = await Teacher.findByIdAndDelete(req.params.id);
-
-        await Subject.updateOne(
-            { teacher: deletedTeacher._id, teacher: { $exists: true } },
-            { $unset: { teacher: 1 } }
-        );
-
-        res.send(deletedTeacher);
+        if (!deletedTeacher) {
+            return res.send({ message: "لا يوجد معلم" });
+        }
+        res.send({ message: "تم حدف المعلم بنجاح", deletedTeacher });
     } catch (error) {
         res.status(500).json(error);
     }
 };
-
 const deleteTeachers = async (req, res) => {
     try {
         const deletionResult = await Teacher.deleteMany({ school: req.params.id });
@@ -123,7 +119,7 @@ const deleteTeachers = async (req, res) => {
         const deletedCount = deletionResult.deletedCount || 0;
 
         if (deletedCount === 0) {
-            res.send({ message: "No teachers found to delete" });
+            res.send({ message: "لا يوجد معلمين لحدفهم" });
             return;
         }
 
@@ -147,7 +143,7 @@ const deleteTeachersByClass = async (req, res) => {
         const deletedCount = deletionResult.deletedCount || 0;
 
         if (deletedCount === 0) {
-            res.send({ message: "No teachers found to delete" });
+            res.send({ message: "لم يتم العثور على معلمين لحدفهم" });
             return;
         }
 
@@ -171,7 +167,7 @@ const teacherAttendance = async (req, res) => {
         const teacher = await Teacher.findById(req.params.id);
 
         if (!teacher) {
-            return res.send({ message: 'Teacher not found' });
+            return res.send({ message: 'لم يتم العثور على معلم' });
         }
 
         const existingAttendance = teacher.attendance.find(
