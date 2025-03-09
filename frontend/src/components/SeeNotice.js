@@ -47,7 +47,7 @@ const SeeNotice = () => {
                 <div style={{ fontSize: '20px' }}>لاتوجد ملاحظات حتى الان</div>
             ) : (
                 <>
-                    <h3 style={{ fontSize: '30px', marginBottom: '40px' }}>Notices</h3>
+                    <h3 style={{ fontSize: '30px', marginBottom: '40px' }}>الملاحظات</h3>
                     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                         {Array.isArray(noticesList) && noticesList.length > 0 &&
                             <TableViewTemplate columns={noticeColumns} rows={noticeRows} />
