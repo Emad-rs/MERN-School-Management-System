@@ -5,7 +5,7 @@ const ErrorPage = () => {
     return (
         <Container>
             <Content>
-                <Heading>عدرا ولكن حدث خطأما </Heading>
+                <Heading>عدرا ولكن حدث خطأ ما </Heading>
                 <Text>
                     نعتدر عن هدا الخلل , يبدو اننا نواجه مشاكل تقنية, الرجاء المحاولة لاحقا.
                 </Text>

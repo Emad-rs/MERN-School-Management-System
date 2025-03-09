@@ -30,13 +30,13 @@ const CustomTooltipContent = ({ active, payload, dataKey }) => {
                 {dataKey === "attendancePercentage" ? (
                     <>
                         <TooltipMain>{subject}</TooltipMain>
-                        <TooltipText>Attended: ({attendedClasses}/{totalClasses})</TooltipText>
+                        <TooltipText>الحاضرين: ({attendedClasses}/{totalClasses})</TooltipText>
                         <TooltipText>{attendancePercentage}%</TooltipText>
                     </>
                 ) : (
                     <>
                         <TooltipMain>{subName.subName}</TooltipMain>
-                        <TooltipText>Marks: {marksObtained}</TooltipText>
+                        <TooltipText>الدرجات: {marksObtained}</TooltipText>
                     </>
                 )}
             </CustomTooltip>
