@@ -9,7 +9,7 @@ import {
     IconButton,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'; // ✅ استيراد الأيقونة الصحيحة
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'; 
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AppBar, Drawer } from '../../components/styles';
 import Logout from '../Logout';
@@ -50,7 +50,7 @@ const AdminDashboard = () => {
 
     return (
         <>
-            <Box sx={{ display: 'flex', direction: 'rtl' }}> {/* ✅ دعم RTL */}
+            <Box sx={{ display: 'flex', direction: 'rtl' }}> 
                 <CssBaseline />
                 <AppBar open={open} position='absolute'>
                     <Toolbar sx={{ pr: '24px' }}>
@@ -80,13 +80,13 @@ const AdminDashboard = () => {
                 </AppBar>
                 <Drawer
                     variant="permanent"
-                    anchor="right" // ✅ القائمة تظهر من اليمين
+                    anchor="right" 
                     open={open}
                     sx={open ? styles.drawerStyled : styles.hideDrawer}
                 >
                     <Toolbar sx={styles.toolBarStyled}>
                         <IconButton onClick={toggleDrawer}>
-                            <ChevronRightIcon /> {/* ✅ تغيير الأيقونة للاتجاه الصحيح */}
+                            <ChevronRightIcon /> 
                         </IconButton>
                     </Toolbar>
                     <Divider />
@@ -169,7 +169,7 @@ const styles = {
         display: "flex"
     },
     hideDrawer: {
-        display: 'none', // ✅ تأكد من أنه مخفي عندما يكون مغلقًا
+        display: 'none', 
         '@media (max-width: 600px)': {
             display: 'none',
         }
