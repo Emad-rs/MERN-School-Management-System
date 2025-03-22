@@ -85,11 +85,7 @@ const StudentProfile = () => {
                   <strong>عنوان السكن:</strong> Tarhona,Libya
                 </Typography>
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="subtitle1" component="p">
-                  <strong>رقم الطوارئ:</strong> (123) 456-7890
-                </Typography>
-              </Grid>
+             
             </Grid>
           </CardContent>
         </Card>
