@@ -53,7 +53,7 @@ const SeeComplains = () => {
         <>
           {response ?
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
-              لا توجد شكاوي حتى هده الآن
+              لا توجد شكاوي حتى الآن
             </Box>
             :
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
