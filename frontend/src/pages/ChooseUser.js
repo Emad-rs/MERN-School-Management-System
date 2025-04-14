@@ -35,42 +35,7 @@ const ChooseUser = ({ visitor }) => {
   else if (user === "Teacher") {
       navigate('/Teacherlogin');
   }
-  //   if (user === "Admin") {
-  //     if (visitor === "guest") {
-  //       const email = "yogendra@12"
-  //       const fields = { email, password }
-  //       setLoader(true)
-  //       dispatch(loginUser(fields, user))
-  //     }
-  //     else {
-  //       navigate('/Adminlogin');
-  //     }
-  //   }
-
-  //   else if (user === "Student") {
-  //     if (visitor === "guest") {
-  //       const rollNum = "1"
-  //       const studentName = "Dipesh Awasthi"
-  //       const fields = { rollNum, studentName, password }
-  //       setLoader(true)
-  //       dispatch(loginUser(fields, user))
-  //     }
-  //     else {
-  //       navigate('/Studentlogin');
-  //     }
-  //   }
-
-  //   else if (user === "Teacher") {
-  //     if (visitor === "guest") {
-  //       const email = "tony@12"
-  //       const fields = { email, password }
-  //       setLoader(true)
-  //       dispatch(loginUser(fields, user))
-  //     }
-  //     else {
-  //       navigate('/Teacherlogin');
-  //     }
-  //   }
+ 
    }
 
   useEffect(() => {
@@ -117,7 +82,7 @@ const ChooseUser = ({ visitor }) => {
                 <StyledTypography>
                   الطالب
                 </StyledTypography>
-                تسجيل الدخول كطالب لاستكشاف مواد الصق والواجبات.
+                تسجيل الدخول كطالب لاستكشاف مواد الصف والواجبات.
               </div>
             </StyledPaper>
           </Grid>
@@ -165,9 +130,11 @@ const StyledPaper = styled(Paper)`
   background-color: #1f1f38;
   color:rgba(255, 255, 255, 0.6);
   cursor:pointer;
+  radius: 50px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   &:hover {
-    background-color: #2c2c6c;
+    background-color:rgb(44, 154, 197);
     color:white;
   }
 `;

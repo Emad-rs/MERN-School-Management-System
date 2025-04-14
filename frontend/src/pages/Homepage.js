@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Grid, Box, Button } from '@mui/material';
+import { Container, Grid, Box } from '@mui/material';
 import styled from 'styled-components';
 import Students from "../assets/students.svg";
 import { LightPurpleButton } from '../components/buttonStyles';
@@ -91,5 +91,5 @@ const StyledText = styled.p`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color:rgb(28, 2, 37);
+  color:rgb(45, 13, 56);
 `;
