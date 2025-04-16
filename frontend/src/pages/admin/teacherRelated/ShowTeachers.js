@@ -36,7 +36,7 @@ const ShowTeachers = () => {
         return (
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
                 <GreenButton variant="contained" onClick={() => navigate("/Admin/teachers/chooseclass")}>
-                    Add Teacher
+                    أضف معلم
                 </GreenButton>
             </Box>
         );
@@ -47,7 +47,7 @@ const ShowTeachers = () => {
     const deleteHandler = (deleteID, address) => {
         console.log(deleteID);
         console.log(address);
-        setMessage("You Deleted a Teacher.")
+        setMessage("لقد تم حذف المعلم.")
         setShowPopup(true)
 
         dispatch(deleteUser(deleteID, address)).then(() => {
@@ -73,11 +73,11 @@ const ShowTeachers = () => {
 
     const actions = [
         {
-            icon: <PersonAddAlt1Icon color="primary" />, name: 'Add New Teacher',
+            icon: <PersonAddAlt1Icon color="primary" />, name: 'اضافة معلم جديد',
             action: () => navigate("/Admin/teachers/chooseclass")
         },
         {
-            icon: <PersonRemoveIcon color="error" />, name: 'Delete All Teachers',
+            icon: <PersonRemoveIcon color="error" />, name: 'حذف جميع المعلمين',
             action: () => deleteHandler(currentUser._id, "Teachers")
         },
     ];

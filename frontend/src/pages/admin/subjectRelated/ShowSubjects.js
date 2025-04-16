@@ -33,7 +33,7 @@ const ShowSubjects = () => {
     const deleteHandler = (deleteID, address) => {
         console.log(deleteID);
         console.log(address);
-        setMessage("You Deleted a Subject.")
+        setMessage("لقد تم حذف المادة.")
         setShowPopup(true)
 
         dispatch(deleteUser(deleteID, address))
@@ -74,11 +74,11 @@ const ShowSubjects = () => {
 
     const actions = [
         {
-            icon: <PostAddIcon color="primary" />, name: 'Add New Subject',
+            icon: <PostAddIcon color="primary" />, name: 'إضافة مادة جديدة',
             action: () => navigate("/Admin/subjects/chooseclass")
         },
         {
-            icon: <DeleteIcon color="error" />, name: 'Delete All Subjects',
+            icon: <DeleteIcon color="error" />, name: 'حذف جميع المواد',
             action: () => deleteHandler(currentUser._id, "Subjects")
         }
     ];
