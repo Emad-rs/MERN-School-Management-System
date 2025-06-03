@@ -103,6 +103,19 @@ const deleteSclasses = async (req, res) => {
         res.status(500).json(error);
     }
 }
+// تحديث بيانات الصف
+const updateSclass = async (req, res) => {
+    try {
+        const sclass = await Sclass.findById(req.params.id);
+        if (!sclass) {
+            return res.status(404).send({ message: "الصف غير موجود" });
+        }
+        sclass.sclassName = req.body.sclassName || sclass.sclassName;
+        await sclass.save();
+        res.send(sclass);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
 
-
-module.exports = { sclassCreate, sclassList, deleteSclass, deleteSclasses, getSclassDetail, getSclassStudents };
+module.exports = { sclassCreate, sclassList, deleteSclass, deleteSclasses, getSclassDetail, getSclassStudents,updateSclass };

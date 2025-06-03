@@ -1,58 +1,106 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, CircularProgress, Stack, TextField } from "@mui/material";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addStuff } from '../../../redux/userRelated/userHandle';
 import { underControl } from '../../../redux/userRelated/userSlice';
-import { BlueButton } from "../../../components/buttonStyles";
+import { updateClass, getClassDetails } from '../../../redux/sclassRelated/sclassHandle';
 import Popup from "../../../components/Popup";
 import Classroom from "../../../assets/classroom.png";
 import styled from "styled-components";
+import AdminMainButton from '../../../components/AdminMainButton';
 
-const AddClass = () => {
+const AddClass = ({ editMode }) => {
     const [sclassName, setSclassName] = useState("");
-
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
+    const params = useParams();
     const userState = useSelector(state => state.user);
     const { status, currentUser, response, error, tempDetails } = userState;
-
     const adminID = currentUser._id
     const address = "Sclass"
-
     const [loader, setLoader] = useState(false)
     const [message, setMessage] = useState("");
     const [showPopup, setShowPopup] = useState(false);
-
+    // جلب بيانات الصف عند التعديل
+    useEffect(() => {
+        if (editMode && params.id) {
+            dispatch(getClassDetails(params.id, "Sclass"));
+        }
+    }, [editMode, params.id, dispatch]);
+    // تعبئة الحقول عند التعديل
+    const sclassDetails = useSelector(state => state.sclass?.sclassDetails);
+    useEffect(() => {
+        if (editMode && sclassDetails && sclassDetails.sclassName) {
+            setSclassName(sclassDetails.sclassName);
+        }
+    }, [editMode, sclassDetails]);
     const fields = {
         sclassName,
         adminID,
+        ...(editMode && params.id ? { _id: params.id } : {})
     };
-
     const submitHandler = (event) => {
-        event.preventDefault()
-        setLoader(true)
-        dispatch(addStuff(fields, address))
+        event.preventDefault();
+        setLoader(true);
+        if (editMode && params.id) {
+            dispatch(updateClass(params.id, fields, "Sclass"))
+                .then((action) => {
+                    if (action && action.type && action.type.includes('failed')) {
+                        setLoader(false);
+                        setMessage('فشل في تعديل الصف.');
+                        setShowPopup(true);
+                    } else {
+                        setMessage('تم تعديل الصف بنجاح.');
+                        setShowPopup(true);
+                        setTimeout(() => {
+                            navigate("/Admin/classes/class/" + params.id);
+                            setLoader(false);
+                        }, 1200);
+                    }
+                });
+        } else {
+            dispatch(addStuff(fields, address)).then((action) => {
+                console.log('رد السيرفر عند إضافة صف:', action);
+                if (action && action.type && action.type.includes('authFailed')) {
+                    setLoader(false);
+                    setMessage('فشل في إنشاء الصف. ربما الاسم مستخدم مسبقاً.');
+                    setShowPopup(true);
+                } else if (action && action.payload && action.payload._id) {
+                    // تم إنشاء الصف بنجاح وسيتم التوجيه في useEffect
+                } else if (action && action.payload && !action.payload._id) {
+                    setLoader(false);
+                    setMessage('لم يتم إنشاء الصف فعليًا. تحقق من البيانات أو تواصل مع الدعم.');
+                    setShowPopup(true);
+                }
+            });
+        }
     };
-
     useEffect(() => {
-        if (status === 'added' && tempDetails) {
-            navigate("/Admin/classes/class/" + tempDetails._id)
-            dispatch(underControl())
-            setLoader(false)
+        if (!editMode) {
+            if (status === 'added' && tempDetails && tempDetails._id) {
+                navigate("/Admin/classes/class/" + tempDetails._id);
+                dispatch(underControl());
+                setLoader(false);
+            } else if (status === 'added' && (!tempDetails || !tempDetails._id)) {
+                setMessage('تم إنشاء الصف بنجاح. سيتم تحديث القائمة.');
+                setShowPopup(true);
+                setTimeout(() => {
+                    navigate("/Admin/classes");
+                    dispatch(underControl());
+                    setLoader(false);
+                }, 1200);
+            } else if (status === 'failed') {
+                setMessage(response);
+                setShowPopup(true);
+                setLoader(false);
+            } else if (status === 'error') {
+                setMessage("لايوجد انترنت");
+                setShowPopup(true);
+                setLoader(false);
+            }
         }
-        else if (status === 'failed') {
-            setMessage(response)
-            setShowPopup(true)
-            setLoader(false)
-        }
-        else if (status === 'error') {
-            setMessage("لايوجد انترنت")
-            setShowPopup(true)
-            setLoader(false)
-        }
-    }, [status, navigate, error, response, dispatch, tempDetails]);
+    }, [status, navigate, error, response, dispatch, tempDetails, editMode]);
     return (
         <>
             <StyledContainer>
@@ -70,7 +118,7 @@ const AddClass = () => {
                     <form onSubmit={submitHandler}>
                         <Stack spacing={3}>
                             <TextField
-                                label="انشاء فصل"
+                                label={editMode ? "تعديل اسم الصف" : "انشاء فصل"}
                                 variant="outlined"
                                 value={sclassName}
                                 onChange={(event) => {
@@ -78,16 +126,9 @@ const AddClass = () => {
                                 }}
                                 required
                             />
-                            <BlueButton
-                                fullWidth
-                                size="large"
-                                sx={{ mt: 3 }}
-                                variant="contained"
-                                type="submit"
-                                disabled={loader}
-                            >
-                                {loader ? <CircularProgress size={24} color="inherit" /> : "Create"}
-                            </BlueButton>
+                            <AdminMainButton type="submit" disabled={loader} startIcon={loader ? <CircularProgress size={24} color="inherit" /> : null}>
+                                {loader ? (editMode ? 'جاري التعديل...' : 'جاري الإنشاء...') : (editMode ? 'تعديل' : 'إنشاء')}
+                            </AdminMainButton>
                             <Button variant="outlined" onClick={() => navigate(-1)}>
                                 الرجوع للخلف
                             </Button>

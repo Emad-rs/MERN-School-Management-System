@@ -7,6 +7,9 @@ import { Paper, Box, Typography, ButtonGroup, Button, Popper, Grow, ClickAwayLis
 import { BlackButton, BlueButton} from "../../components/buttonStyles";
 import TableTemplate from "../../components/TableTemplate";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
+// import SchoolIcon from '@mui/icons-material/School'; // تم التعليق لأنه غير مستخدم
+import TableRowsIcon from '@mui/icons-material/TableRows';
+import { Card } from '@mui/material';
 
 const TeacherClassDetails = () => {
     const navigate = useNavigate()
@@ -144,34 +147,37 @@ const TeacherClassDetails = () => {
     };
 
     return (
-        <>
-            {loading ? (
-                <div>جاري التحميل...</div>
-            ) : (
-                <>
-                    <Typography variant="h4" align="center" gutterBottom>
-                        بيانات الصف
-                    </Typography>
-                    {getresponse ? (
-                        <>
-                            <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
-                                لم يتم العثور على طلاب
-                            </Box>
-                        </>
-                    ) : (
-                        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-                            <Typography variant="h5" gutterBottom>
-                                قائمة الطلبة:
-                            </Typography>
+        <Box sx={{ mt: 4, mb: 4 }}>
+            <Card sx={{ mb: 3, p: 2, borderRadius: 3, boxShadow: 3, display: 'flex', alignItems: 'center', gap: 2, background: 'linear-gradient(135deg, #e3f0ff 0%, #fafcff 100%)' }}>
+                <TableRowsIcon sx={{ fontSize: 32, color: '#1565c0' }} />
+                <Typography variant="h5" color="#1565c0" fontWeight="bold">تفاصيل الصف</Typography>
+            </Card>
+            <Card sx={{ p: 3, borderRadius: 3, boxShadow: 3 }}>
+                {loading ? (
+                    <div>جاري التحميل...</div>
+                ) : (
+                    <>
+                        <Typography variant="h5" gutterBottom>
+                            قائمة الطلبة:
+                        </Typography>
 
-                            {Array.isArray(sclassStudents) && sclassStudents.length > 0 &&
-                                <TableTemplate buttonHaver={StudentsButtonHaver} columns={studentColumns} rows={studentRows} />
-                            }
-                        </Paper>
-                    )}
-                </>
-            )}
-        </>
+                        {getresponse ? (
+                            <>
+                                <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
+                                    لم يتم العثور على طلاب
+                                </Box>
+                            </>
+                        ) : (
+                            <TableTemplate
+                                buttonHaver={StudentsButtonHaver}
+                                columns={studentColumns}
+                                rows={Array.isArray(studentRows) ? studentRows : []}
+                            />
+                        )}
+                    </>
+                )}
+            </Card>
+        </Box>
     );
 };
 

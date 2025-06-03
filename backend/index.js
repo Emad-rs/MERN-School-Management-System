@@ -2,7 +2,6 @@ const express = require("express")
 const cors = require("cors")
 const mongoose = require("mongoose")
 const dotenv = require("dotenv")
-// const bodyParser = require("body-parser")
 const app = express()
 const Routes = require("./routes/route.js")
 
@@ -14,7 +13,7 @@ app.use(express.json({ limit: '10mb' }))
 app.use(cors())
 
 mongoose
-    .connect('mongodb://127.0.0.1:27017/', {
+    .connect('mongodb://127.0.0.1:27017/test', {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })

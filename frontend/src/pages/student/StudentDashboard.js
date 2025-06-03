@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import FaceIcon from '@mui/icons-material/Face';
 import StudentSideBar from './StudentSideBar';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import StudentHomePage from './StudentHomePage';
@@ -20,6 +21,7 @@ import StudentComplain from './StudentComplain';
 import Logout from '../Logout'
 import AccountMenu from '../../components/AccountMenu';
 import { AppBar, Drawer } from '../../components/styles';
+import SchedulePage from '../SchedulePage'; 
 
 const StudentDashboard = () => {
     const [open, setOpen] = useState(true);
@@ -29,7 +31,7 @@ const StudentDashboard = () => {
 
     return (
         <>
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex', background: 'linear-gradient(135deg, #e3f0ff 0%, #fafcff 100%)', minHeight: '100vh' }}>
                 <CssBaseline />
                 <AppBar open={open} position='absolute'>
                     <Toolbar sx={{ pr: '24px' }}>
@@ -45,15 +47,19 @@ const StudentDashboard = () => {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Typography
-                            component="h1"
-                            variant="h6"
-                            color="inherit"
-                            noWrap
-                            sx={{ flexGrow: 1 }}
-                        >
-                            لوحة تحكم الطالب
-                        </Typography>
+                        <Box display="flex" alignItems="center" gap={2}>
+                            <FaceIcon sx={{ fontSize: 32, color: '#1976d2' }} />
+                            <Typography
+                                component="h1"
+                                variant="h5"
+                                color="#1976d2"
+                                fontWeight="bold"
+                                noWrap
+                                sx={{ flexGrow: 1 }}
+                            >
+                                لوحة تحكم الطالب
+                            </Typography>
+                        </Box>
                         <AccountMenu />
                     </Toolbar>
                 </AppBar>
@@ -75,11 +81,10 @@ const StudentDashboard = () => {
                         <Route path='*' element={<Navigate to="/" />} />
                         <Route path="/Student/dashboard" element={<StudentHomePage />} />
                         <Route path="/Student/profile" element={<StudentProfile />} />
-
                         <Route path="/Student/subjects" element={<StudentSubjects />} />
                         <Route path="/Student/attendance" element={<ViewStdAttendance />} />
                         <Route path="/Student/complain" element={<StudentComplain />} />
-
+                        <Route path="/Student/schedule" element={<SchedulePage />} />
                         <Route path="/logout" element={<Logout />} />
                     </Routes>
                 </Box>

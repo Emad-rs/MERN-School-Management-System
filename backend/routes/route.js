@@ -1,10 +1,7 @@
 const router = require('express').Router();
 
  const { adminRegister, adminLogIn,  getAdminDetail,deleteAdmin, updateAdmin } = require('../controllers/admin-controller.js');
-
-//const { adminRegister, adminLogIn, getAdminDetail} = require('../controllers/admin-controller.js');
-
-const { sclassCreate, sclassList, deleteSclass, deleteSclasses, getSclassDetail, getSclassStudents } = require('../controllers/class-controller.js');
+const { sclassCreate, sclassList, deleteSclass, deleteSclasses, getSclassDetail, getSclassStudents, updateSclass } = require('../controllers/class-controller.js');
 const { complainCreate, complainList } = require('../controllers/complain-controller.js');
 const { noticeCreate, noticeList, deleteNotices, deleteNotice, updateNotice } = require('../controllers/notice-controller.js');
 const {
@@ -24,6 +21,12 @@ const {
     removeStudentAttendance } = require('../controllers/student_controller.js');
 const { subjectCreate, classSubjects, deleteSubjectsByClass, getSubjectDetail, deleteSubject, freeSubjectList, allSubjects, deleteSubjects } = require('../controllers/subject-controller.js');
 const { teacherRegister, teacherLogIn, getTeachers, getTeacherDetail, deleteTeachers, deleteTeachersByClass, deleteTeacher, updateTeacherSubject, teacherAttendance } = require('../controllers/teacher-controller.js');
+const { 
+  addScheduleItem,
+  getScheduleByClass,
+  updateScheduleItem,
+  deleteScheduleItem
+} = require('../controllers/schedule-controller.js');
 
 // Admin
 router.post('/AdminReg', adminRegister);
@@ -102,6 +105,14 @@ router.get("/Sclass/Students/:id", getSclassStudents)
 
 router.delete("/Sclasses/:id", deleteSclasses)
 router.delete("/Sclass/:id", deleteSclass)
+
+router.put('/Sclass/:id', updateSclass);
+
+// مسارات جدول الحصص
+router.post('/schedule', addScheduleItem);
+router.get('/schedule/:sclassId', getScheduleByClass);
+router.put('/schedule/:id', updateScheduleItem);
+router.delete('/schedule/:id', deleteScheduleItem);
 
 // Subject
 

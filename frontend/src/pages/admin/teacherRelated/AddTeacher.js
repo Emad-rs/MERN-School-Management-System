@@ -5,6 +5,7 @@ import { getSubjectDetails } from '../../../redux/sclassRelated/sclassHandle';
 import Popup from '../../../components/Popup';
 import { registerUser } from '../../../redux/userRelated/userHandle';
 import { underControl } from '../../../redux/userRelated/userSlice';
+import AdminMainButton from '../../../components/AdminMainButton';
 import { CircularProgress } from '@mui/material';
 
 const AddTeacher = () => {
@@ -89,13 +90,9 @@ const AddTeacher = () => {
             onChange={(event) => setPassword(event.target.value)}
             autoComplete="new-password" required />
 
-          <button className="registerButton" type="submit" disabled={loader}>
-            {loader ? (
-              <CircularProgress size={24} color="inherit" />
-            ) : (
-              'Register'
-            )}
-          </button>
+          <AdminMainButton type="submit" disabled={loader} startIcon={loader ? <CircularProgress size={24} color="inherit" /> : null}>
+            {loader ? 'جاري التسجيل...' : 'تسجيل'}
+          </AdminMainButton>
         </form>
       </div>
       <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />

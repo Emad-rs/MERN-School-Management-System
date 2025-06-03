@@ -41,6 +41,9 @@ const ClassDetails = () => {
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
+        if (newValue === '2') {
+            dispatch(getSubjectList(classID, "ClassSubjects"));
+        }
     };
 
     const [showPopup, setShowPopup] = useState(false);
@@ -64,13 +67,26 @@ const ClassDetails = () => {
         { id: 'code', label: 'Subject Code', minWidth: 100 },
     ]
 
-    const subjectRows = subjectsList && subjectsList.length > 0 && subjectsList.map((subject) => {
-        return {
+    const subjectRows = Array.isArray(subjectsList) && subjectsList.length > 0
+        ? subjectsList.map((subject) => ({
             name: subject.subName,
             code: subject.subCode,
             id: subject._id,
-        };
-    })
+        }))
+        : [];
+
+    const studentColumns = [
+        { id: 'name', label: 'Name', minWidth: 170 },
+        { id: 'rollNum', label: 'Roll Number', minWidth: 100 },
+    ]
+
+    const studentRows = Array.isArray(sclassStudents) && sclassStudents.length > 0
+        ? sclassStudents.map((student) => ({
+            name: student.name,
+            rollNum: student.rollNum,
+            id: student._id,
+        }))
+        : [];
 
     const SubjectsButtonHaver = ({ row }) => {
         return (
@@ -126,19 +142,6 @@ const ClassDetails = () => {
             </>
         )
     }
-
-    const studentColumns = [
-        { id: 'name', label: 'Name', minWidth: 170 },
-        { id: 'rollNum', label: 'Roll Number', minWidth: 100 },
-    ]
-
-    const studentRows = sclassStudents.map((student) => {
-        return {
-            name: student.name,
-            rollNum: student.rollNum,
-            id: student._id,
-        };
-    })
 
     const StudentsButtonHaver = ({ row }) => {
         return (

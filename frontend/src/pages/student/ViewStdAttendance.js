@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
-import { BottomNavigation, BottomNavigationAction, Box, Button, Collapse, Paper, Table, TableBody, TableHead, Typography } from '@mui/material';
+import { Card, Typography, Box, BottomNavigation, BottomNavigationAction, Table, TableHead, Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetails } from '../../redux/userRelated/userHandle';
-import { calculateOverallAttendancePercentage, calculateSubjectAttendancePercentage, groupAttendanceBySubject } from '../../components/attendanceCalculator';
+import { calculateSubjectAttendancePercentage, groupAttendanceBySubject } from '../../components/attendanceCalculator';
 
 import CustomBarChart from '../../components/CustomBarChart'
 
-import InsertChartIcon from '@mui/icons-material/InsertChart';
-import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
+import PieChartIcon from '@mui/icons-material/PieChart';
 import TableChartIcon from '@mui/icons-material/TableChart';
-import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 import { StyledTableCell, StyledTableRow } from '../../components/styles';
 
 const ViewStdAttendance = () => {
@@ -25,7 +23,7 @@ const ViewStdAttendance = () => {
         }));
     };
 
-    const { userDetails, currentUser, loading, response, error } = useSelector((state) => state.user);
+    const { userDetails, currentUser, response, error } = useSelector((state) => state.user);
 
     useEffect(() => {
         dispatch(getUserDetails(currentUser._id, "Student"));
@@ -45,8 +43,6 @@ const ViewStdAttendance = () => {
 
     const attendanceBySubject = groupAttendanceBySubject(subjectAttendance)
 
-    const overallAttendancePercentage = calculateOverallAttendancePercentage(subjectAttendance);
-
     const subjectData = Object.entries(attendanceBySubject).map(([subName, { subCode, present, sessions }]) => {
         const subjectAttendancePercentage = calculateSubjectAttendancePercentage(present, sessions);
         return {
@@ -63,10 +59,11 @@ const ViewStdAttendance = () => {
 
     const renderTableSection = () => {
         return (
-            <>
-                <Typography variant="h4" align="center" gutterBottom>
-                    الحضور
-                </Typography>
+            <Card sx={{ p: 3, borderRadius: 3, boxShadow: 3, mb: 3 }}>
+                <Box display="flex" alignItems="center" gap={2} mb={2}>
+                    <TableChartIcon sx={{ fontSize: 32, color: '#1976d2' }} />
+                    <Typography variant="h5" color="#1976d2" fontWeight="bold">جدول الحضور</Typography>
+                </Box>
                 <Table>
                     <TableHead>
                         <StyledTableRow>
@@ -79,113 +76,62 @@ const ViewStdAttendance = () => {
                     </TableHead>
                     {Object.entries(attendanceBySubject).map(([subName, { present, allData, subId, sessions }], index) => {
                         const subjectAttendancePercentage = calculateSubjectAttendancePercentage(present, sessions);
-
                         return (
-                            <TableBody key={index}>
-                                <StyledTableRow>
-                                    <StyledTableCell>{subName}</StyledTableCell>
-                                    <StyledTableCell>{present}</StyledTableCell>
-                                    <StyledTableCell>{sessions}</StyledTableCell>
-                                    <StyledTableCell>{subjectAttendancePercentage}%</StyledTableCell>
-                                    <StyledTableCell align="center">
-                                        <Button variant="contained"
-                                            onClick={() => handleOpen(subId)}>
-                                            {openStates[subId] ? <KeyboardArrowUp /> : <KeyboardArrowDown />}التفاصيل
-                                        </Button>
-                                    </StyledTableCell>
-                                </StyledTableRow>
-                                <StyledTableRow>
-                                    <StyledTableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-                                        <Collapse in={openStates[subId]} timeout="auto" unmountOnExit>
-                                            <Box sx={{ margin: 1 }}>
-                                                <Typography variant="h6" gutterBottom component="div">
-                                                    بيانات الحضور
-                                                </Typography>
-                                                <Table size="small" aria-label="purchases">
-                                                    <TableHead>
-                                                        <StyledTableRow>
-                                                            <StyledTableCell>التاريخ</StyledTableCell>
-                                                            <StyledTableCell align="right">الحالة</StyledTableCell>
-                                                        </StyledTableRow>
-                                                    </TableHead>
-                                                    <TableBody>
-                                                        {allData.map((data, index) => {
-                                                            const date = new Date(data.date);
-                                                            const dateString = date.toString() !== "Invalid Date" ? date.toISOString().substring(0, 10) : "Invalid Date";
-                                                            return (
-                                                                <StyledTableRow key={index}>
-                                                                    <StyledTableCell component="th" scope="row">
-                                                                        {dateString}
-                                                                    </StyledTableCell>
-                                                                    <StyledTableCell align="right">{data.status}</StyledTableCell>
-                                                                </StyledTableRow>
-                                                            )
-                                                        })}
-                                                    </TableBody>
-                                                </Table>
-                                            </Box>
-                                        </Collapse>
-                                    </StyledTableCell>
-                                </StyledTableRow>
-                            </TableBody>
-                        )
-                    }
-                    )}
+                            <StyledTableRow key={index}>
+                                <StyledTableCell>{subName}</StyledTableCell>
+                                <StyledTableCell>{present}</StyledTableCell>
+                                <StyledTableCell>{sessions}</StyledTableCell>
+                                <StyledTableCell>{subjectAttendancePercentage}%</StyledTableCell>
+                                <StyledTableCell align="center">
+                                    <Button
+                                        size="small"
+                                        onClick={() => handleOpen(subId)}
+                                        endIcon={openStates[subId] ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                                    >
+                                        تفاصيل
+                                    </Button>
+                                </StyledTableCell>
+                            </StyledTableRow>
+                        );
+                    })}
                 </Table>
-                <div>
-                    إجمالي نسبةالحضور: {overallAttendancePercentage.toFixed(2)}%
-                </div>
-            </>
-        )
-    }
+            </Card>
+        );
+    };
 
     const renderChartSection = () => {
         return (
-            <>
+            <Card sx={{ p: 3, borderRadius: 3, boxShadow: 3, mb: 3 }}>
+                <Box display="flex" alignItems="center" gap={2} mb={2}>
+                    <PieChartIcon sx={{ fontSize: 32, color: '#0288d1' }} />
+                    <Typography variant="h5" color="#0288d1" fontWeight="bold">رسم بياني للحضور</Typography>
+                </Box>
                 <CustomBarChart chartData={subjectData} dataKey="attendancePercentage" />
-            </>
-        )
+            </Card>
+        );
     };
 
     return (
-        <>
-            {loading
-                ? (
-                    <div>جاري التحميل...</div>
-                )
-                :
-                <div>
-                    {subjectAttendance && Array.isArray(subjectAttendance) && subjectAttendance.length > 0 ?
-                        <>
-                            {selectedSection === 'table' && renderTableSection()}
-                            {selectedSection === 'chart' && renderChartSection()}
-
-                            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
-                                <BottomNavigation value={selectedSection} onChange={handleSectionChange} showLabels>
-                                    <BottomNavigationAction
-                                        label="Table"
-                                        value="table"
-                                        icon={selectedSection === 'table' ? <TableChartIcon /> : <TableChartOutlinedIcon />}
-                                    />
-                                    <BottomNavigationAction
-                                        label="Chart"
-                                        value="chart"
-                                        icon={selectedSection === 'chart' ? <InsertChartIcon /> : <InsertChartOutlinedIcon />}
-                                    />
-                                </BottomNavigation>
-                            </Paper>
-                        </>
-                        :
-                        <>
-                            <Typography variant="h6" gutterBottom component="div">
-                                انت لا تملك بيانات حضور حتى الان
-                            </Typography>
-                        </>
-                    }
-                </div>
-            }
-        </>
-    )
+        <Box sx={{ mt: 4, mb: 4 }}>
+            <Card sx={{ p: 2, borderRadius: 3, boxShadow: 3, mb: 3, background: 'linear-gradient(135deg, #e3f0ff 0%, #fafcff 100%)' }}>
+                <Box display="flex" alignItems="center" gap={2}>
+                    <PieChartIcon sx={{ fontSize: 32, color: '#1976d2' }} />
+                    <Typography variant="h5" color="#1976d2" fontWeight="bold">حضور الطالب</Typography>
+                </Box>
+            </Card>
+            <BottomNavigation
+                showLabels
+                value={selectedSection}
+                onChange={handleSectionChange}
+                sx={{ mb: 3, borderRadius: 2, boxShadow: 1 }}
+            >
+                <BottomNavigationAction label="جدول الحضور" value="table" icon={<TableChartIcon />} />
+                <BottomNavigationAction label="رسم بياني" value="chart" icon={<PieChartIcon />} />
+            </BottomNavigation>
+            {selectedSection === 'table' && renderTableSection()}
+            {selectedSection === 'chart' && renderChartSection()}
+        </Box>
+    );
 }
 
 export default ViewStdAttendance

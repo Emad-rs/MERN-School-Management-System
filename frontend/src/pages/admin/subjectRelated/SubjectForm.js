@@ -70,7 +70,7 @@ const SubjectForm = () => {
 
     useEffect(() => {
         if (status === 'added') {
-            navigate("/Admin/subjects");
+            navigate(`/Admin/classes/class/${sclassName}`);
             dispatch(underControl())
             setLoader(false)
         }
@@ -84,7 +84,7 @@ const SubjectForm = () => {
             setShowPopup(true)
             setLoader(false)
         }
-    }, [status, navigate, error, response, dispatch]);
+    }, [status, navigate, error, response, dispatch, sclassName]);
 
     return (
         <form onSubmit={submitHandler}>

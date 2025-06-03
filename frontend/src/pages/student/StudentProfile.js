@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import { Card, CardContent, Typography, Grid, Box, Avatar, Container, Paper } from '@mui/material';
 import { useSelector } from 'react-redux';
+import FaceIcon from '@mui/icons-material/Face';
 
 const StudentProfile = () => {
   const { currentUser, response, error } = useSelector((state) => state.user);
@@ -18,74 +19,58 @@ const StudentProfile = () => {
         <StyledPaper elevation={3}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Box display="flex" justifyContent="center">
-                <Avatar alt="Student Avatar" sx={{ width: 150, height: 150 }}>
-                  {String(currentUser.name).charAt(0)}
+              <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
+                <Avatar sx={{ width: 120, height: 120, bgcolor: '#1976d2', mb: 2 }}>
+                  <FaceIcon sx={{ fontSize: 70 }} />
                 </Avatar>
-              </Box>
-            </Grid>
-            <Grid item xs={12}>
-              <Box display="flex" justifyContent="center">
-                <Typography variant="h5" component="h2" textAlign="center">
+                <Typography variant="h5" component="h2" textAlign="center" fontWeight="bold">
                   {currentUser.name}
                 </Typography>
               </Box>
             </Grid>
-            <Grid item xs={12}>
-              <Box display="flex" justifyContent="center">
-                <Typography variant="subtitle1" component="p" textAlign="center">
-                  رقم قيد الطالب: {currentUser.rollNum}
-                </Typography>
-              </Box>
+            <Grid item xs={12} sm={6}>
+              <Typography variant="subtitle1" component="p" textAlign="center">
+                رقم قيد الطالب: {currentUser.rollNum}
+              </Typography>
             </Grid>
-            <Grid item xs={12}>
-              <Box display="flex" justifyContent="center">
-                <Typography variant="subtitle1" component="p" textAlign="center">
-                  الصف: {sclassName.sclassName}
-                </Typography>
-              </Box>
+            <Grid item xs={12} sm={6}>
+              <Typography variant="subtitle1" component="p" textAlign="center">
+                الصف: {sclassName.sclassName}
+              </Typography>
             </Grid>
-            <Grid item xs={12}>
-              <Box display="flex" justifyContent="center">
-                <Typography variant="subtitle1" component="p" textAlign="center">
-                  المدرسة: {studentSchool.schoolName}
-                </Typography>
-              </Box>
+            <Grid item xs={12} sm={6}>
+              <Typography variant="subtitle1" component="p" textAlign="center">
+                المدرسة: {studentSchool.schoolName}
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Typography variant="subtitle1" component="p" textAlign="center">
+                البريد الألكتروني: {currentUser.email}
+              </Typography>
             </Grid>
           </Grid>
         </StyledPaper>
-        <Card>
+        <Card sx={{ mt: 4, borderRadius: 3, boxShadow: 3 }}>
           <CardContent>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h6" gutterBottom fontWeight="bold">
               البيانات الشخصية
             </Typography>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <Typography variant="subtitle1" component="p">
-                  <strong>تاريخ ميلادك:</strong> Agust 15, 1996
+                  <strong>تاريخ الميلاد:</strong> ---
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Typography variant="subtitle1" component="p">
-                  <strong>الجنس:</strong> دكر
+                  <strong>الجنس:</strong> ---
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Typography variant="subtitle1" component="p">
-                  <strong>البريد الألكتروني:</strong> ealtrhon96@gmail.com
+                  <strong>رقم الهاتف:</strong> ---
                 </Typography>
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="subtitle1" component="p">
-                  <strong>رقم الهاتف:</strong> (218) 92-2923224
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Typography variant="subtitle1" component="p">
-                  <strong>عنوان السكن:</strong> Tarhona,Libya
-                </Typography>
-              </Grid>
-             
             </Grid>
           </CardContent>
         </Card>

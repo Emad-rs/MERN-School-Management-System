@@ -5,6 +5,7 @@ import { addStuff } from '../../../redux/userRelated/userHandle';
 import { underControl } from '../../../redux/userRelated/userSlice';
 import { CircularProgress } from '@mui/material';
 import Popup from '../../../components/Popup';
+import AdminMainButton from '../../../components/AdminMainButton';
 
 const AddNotice = () => {
   const dispatch = useDispatch();
@@ -64,13 +65,9 @@ const AddNotice = () => {
             onChange={(event) => setDate(event.target.value)}
             required />
 
-          <button className="registerButton" type="submit" disabled={loader}>
-            {loader ? (
-              <CircularProgress size={24} color="inherit" />
-            ) : (
-              'Add'
-            )}
-          </button>
+          <AdminMainButton type="submit" disabled={loader} startIcon={loader ? <CircularProgress size={24} color="inherit" /> : null}>
+            {loader ? 'جاري الإضافة...' : 'إضافة'}
+          </AdminMainButton>
         </form>
       </div>
       <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />

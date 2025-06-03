@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import SchoolIcon from '@mui/icons-material/School';
 import TeacherSideBar from './TeacherSideBar';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Logout from '../Logout'
@@ -23,6 +24,7 @@ import TeacherHomePage from './TeacherHomePage';
 import TeacherProfile from './TeacherProfile';
 import TeacherViewStudent from './TeacherViewStudent';
 import StudentExamMarks from '../admin/studentRelated/StudentExamMarks';
+import SchedulePage from '../SchedulePage'; 
 
 const TeacherDashboard = () => {
     const [open, setOpen] = useState(true);
@@ -32,7 +34,7 @@ const TeacherDashboard = () => {
 
     return (
         <>
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex', background: 'linear-gradient(135deg, #e3f0ff 0%, #fafcff 100%)', minHeight: '100vh' }}>
                 <CssBaseline />
                 <AppBar open={open} position='absolute'>
                     <Toolbar sx={{ pr: '24px' }}>
@@ -48,15 +50,19 @@ const TeacherDashboard = () => {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Typography
-                            component="h1"
-                            variant="h6"
-                            color="inherit"
-                            noWrap
-                            sx={{ flexGrow: 1 }}
-                        >
-                            لوحة تحكم المعلم
-                        </Typography>
+                        <Box display="flex" alignItems="center" gap={2}>
+                            <SchoolIcon sx={{ fontSize: 32, color: '#1565c0' }} />
+                            <Typography
+                                component="h1"
+                                variant="h5"
+                                color="#1565c0"
+                                fontWeight="bold"
+                                noWrap
+                                sx={{ flexGrow: 1 }}
+                            >
+                                لوحة تحكم المعلم
+                            </Typography>
+                        </Box>
                         <AccountMenu />
                     </Toolbar>
                 </AppBar>
@@ -86,6 +92,8 @@ const TeacherDashboard = () => {
 
                         <Route path="/Teacher/class/student/attendance/:studentID/:subjectID" element={<StudentAttendance situation="Subject" />} />
                         <Route path="/Teacher/class/student/marks/:studentID/:subjectID" element={<StudentExamMarks situation="Subject" />} />
+
+                        <Route path="/Teacher/schedule" element={<SchedulePage />} />
 
                         <Route path="/logout" element={<Logout />} />
                     </Routes>

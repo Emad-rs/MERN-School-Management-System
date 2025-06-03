@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Box, CircularProgress, Stack, TextField, Typography } from '@mui/material';
+import { Card, CardContent, Typography, Box, Stack, TextField, CircularProgress } from '@mui/material';
+import ReportProblemIcon from '@mui/icons-material/ReportProblem';
 import Popup from '../../components/Popup';
 import { BlueButton } from '../../components/buttonStyles';
 import { addStuff } from '../../redux/userRelated/userHandle';
@@ -49,26 +50,13 @@ const StudentComplain = () => {
 
     return (
         <>
-            <Box
-                sx={{
-                    flex: '1 1 auto',
-                    alignItems: 'center',
-                    display: 'flex',
-                    justifyContent: 'center'
-                }}
-            >
-                <Box
-                    sx={{
-                        maxWidth: 550,
-                        px: 3,
-                        py: '100px',
-                        width: '100%'
-                    }}
-                >
-                    <div>
-                        <Stack spacing={1} sx={{ mb: 3 }}>
-                            <Typography variant="h4">الشكوى</Typography>
-                        </Stack>
+            <Box sx={{ flex: '1 1 auto', alignItems: 'center', display: 'flex', justifyContent: 'center', minHeight: '100vh', background: 'linear-gradient(135deg, #e3f0ff 0%, #fafcff 100%)' }}>
+                <Card sx={{ maxWidth: 550, width: '100%', p: 3, borderRadius: 3, boxShadow: 3 }}>
+                    <CardContent>
+                        <Box display="flex" alignItems="center" gap={2} mb={2}>
+                            <ReportProblemIcon sx={{ fontSize: 32, color: '#d32f2f' }} />
+                            <Typography variant="h5" color="#d32f2f" fontWeight="bold">تقديم شكوى</Typography>
+                        </Box>
                         <form onSubmit={submitHandler}>
                             <Stack spacing={3}>
                                 <TextField
@@ -77,38 +65,28 @@ const StudentComplain = () => {
                                     type="date"
                                     value={date}
                                     onChange={(event) => setDate(event.target.value)} required
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
+                                    InputLabelProps={{ shrink: true }}
                                 />
                                 <TextField
                                     fullWidth
-                                    label="أكتب محتوى الشكوى"
-                                    variant="outlined"
-                                    value={complaint}
-                                    onChange={(event) => {
-                                        setComplaint(event.target.value);
-                                    }}
-                                    required
+                                    label="اكتب الشكوى هنا"
                                     multiline
-                                    maxRows={4}
+                                    rows={4}
+                                    value={complaint}
+                                    onChange={(event) => setComplaint(event.target.value)}
+                                    required
                                 />
+                                <Box display="flex" justifyContent="flex-end">
+                                    <BlueButton type="submit" variant="contained" disabled={loader}>
+                                        {loader ? <CircularProgress size={24} color="inherit" /> : 'إرسال الشكوى'}
+                                    </BlueButton>
+                                </Box>
                             </Stack>
-                            <BlueButton
-                                fullWidth
-                                size="large"
-                                sx={{ mt: 3 }}
-                                variant="contained"
-                                type="submit"
-                                disabled={loader}
-                            >
-                                {loader ? <CircularProgress size={24} color="inherit" /> : "Add"}
-                            </BlueButton>
                         </form>
-                    </div>
-                </Box>
+                        {showPopup && <Popup message={message} onClose={() => setShowPopup(false)} />}
+                    </CardContent>
+                </Card>
             </Box>
-            <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
         </>
     );
 };

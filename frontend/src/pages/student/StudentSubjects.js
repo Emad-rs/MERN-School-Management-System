@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getSubjectList } from '../../redux/sclassRelated/sclassHandle';
-import { BottomNavigation, BottomNavigationAction, Container, Paper, Table, TableBody, TableHead, Typography } from '@mui/material';
 import { getUserDetails } from '../../redux/userRelated/userHandle';
 import CustomBarChart from '../../components/CustomBarChart'
 
-import InsertChartIcon from '@mui/icons-material/InsertChart';
-import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import TableChartIcon from '@mui/icons-material/TableChart';
-import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import BarChartIcon from '@mui/icons-material/BarChart';
 import { StyledTableCell, StyledTableRow } from '../../components/styles';
+import { Card, Typography, Box, BottomNavigation, BottomNavigationAction, Container, Table, TableBody, TableHead } from '@mui/material';
 
 const StudentSubjects = () => {
 
@@ -34,7 +33,7 @@ const StudentSubjects = () => {
     }, [userDetails])
 
     useEffect(() => {
-        if (subjectMarks == []) {
+        if (subjectMarks.length === 0) {
             dispatch(getSubjectList(currentUser.sclassName._id, "ClassSubjects"));
         }
     }, [subjectMarks, dispatch, currentUser.sclassName._id]);
@@ -45,10 +44,11 @@ const StudentSubjects = () => {
 
     const renderTableSection = () => {
         return (
-            <>
-                <Typography variant="h4" align="center" gutterBottom>
-                    درجات المادة
-                </Typography>
+            <Card sx={{ p: 3, borderRadius: 3, boxShadow: 3, mb: 3 }}>
+                <Box display="flex" alignItems="center" gap={2} mb={2}>
+                    <TableChartIcon sx={{ fontSize: 32, color: '#1976d2' }} />
+                    <Typography variant="h5" color="#1976d2" fontWeight="bold">درجات المواد</Typography>
+                </Box>
                 <Table>
                     <TableHead>
                         <StyledTableRow>
@@ -70,12 +70,20 @@ const StudentSubjects = () => {
                         })}
                     </TableBody>
                 </Table>
-            </>
+            </Card>
         );
     };
 
     const renderChartSection = () => {
-        return <CustomBarChart chartData={subjectMarks} dataKey="marksObtained" />;
+        return (
+            <Card sx={{ p: 3, borderRadius: 3, boxShadow: 3, mb: 3 }}>
+                <Box display="flex" alignItems="center" gap={2} mb={2}>
+                    <BarChartIcon sx={{ fontSize: 32, color: '#0288d1' }} />
+                    <Typography variant="h5" color="#0288d1" fontWeight="bold">رسم بياني للدرجات</Typography>
+                </Box>
+                <CustomBarChart chartData={subjectMarks} dataKey="marksObtained" />
+            </Card>
+        );
     };
 
     const renderClassDetailsSection = () => {
@@ -103,7 +111,13 @@ const StudentSubjects = () => {
     };
 
     return (
-        <>
+        <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
+            <Card sx={{ p: 2, borderRadius: 3, boxShadow: 3, mb: 3, background: 'linear-gradient(135deg, #e3f0ff 0%, #fafcff 100%)' }}>
+                <Box display="flex" alignItems="center" gap={2}>
+                    <MenuBookIcon sx={{ fontSize: 32, color: '#1976d2' }} />
+                    <Typography variant="h5" color="#1976d2" fontWeight="bold">مواد الطالب</Typography>
+                </Box>
+            </Card>
             {loading ? (
                 <div>جاري التحميل...</div>
             ) : (
@@ -111,23 +125,17 @@ const StudentSubjects = () => {
                     {subjectMarks && Array.isArray(subjectMarks) && subjectMarks.length > 0
                         ?
                         (<>
+                            <BottomNavigation
+                                showLabels
+                                value={selectedSection}
+                                onChange={handleSectionChange}
+                                sx={{ mb: 3, borderRadius: 2, boxShadow: 1 }}
+                            >
+                                <BottomNavigationAction label="جدول الدرجات" value="table" icon={<TableChartIcon />} />
+                                <BottomNavigationAction label="رسم بياني" value="chart" icon={<BarChartIcon />} />
+                            </BottomNavigation>
                             {selectedSection === 'table' && renderTableSection()}
                             {selectedSection === 'chart' && renderChartSection()}
-
-                            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
-                                <BottomNavigation value={selectedSection} onChange={handleSectionChange} showLabels>
-                                    <BottomNavigationAction
-                                        label="الجدول"
-                                        value="جدول"
-                                        icon={selectedSection === 'table' ? <TableChartIcon /> : <TableChartOutlinedIcon />}
-                                    />
-                                    <BottomNavigationAction
-                                        label="المخطط"
-                                        value="مخطط"
-                                        icon={selectedSection === 'chart' ? <InsertChartIcon /> : <InsertChartOutlinedIcon />}
-                                    />
-                                </BottomNavigation>
-                            </Paper>
                         </>)
                         :
                         (<>
@@ -136,7 +144,7 @@ const StudentSubjects = () => {
                     }
                 </div>
             )}
-        </>
+        </Container>
     );
 };
 
